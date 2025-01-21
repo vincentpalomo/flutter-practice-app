@@ -12,7 +12,7 @@ class TodoPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Todo App'),
+        title: const Text('Todo App', style: TextStyle( color: Colors.white)),
         backgroundColor: Colors.deepOrange,
       ),
       body: ListView.builder(
@@ -24,6 +24,7 @@ class TodoPage extends ConsumerWidget {
               todo.title,
               style: TextStyle(
                 decoration: todo.isCompleted ? TextDecoration.lineThrough : null,
+                color: Colors.white
               ),
             ),
             leading: Checkbox(
@@ -45,7 +46,7 @@ class TodoPage extends ConsumerWidget {
         onPressed: () => _showAddTodoDialog(context, ref),
         child: const Icon(Icons.add),
       ),
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.deepOrangeAccent,
     );
   }
 
