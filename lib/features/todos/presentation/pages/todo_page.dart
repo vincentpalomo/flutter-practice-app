@@ -12,8 +12,13 @@ class TodoPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Todo App', style: TextStyle( color: Colors.white)),
+        title: const Text('Todo App', style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.deepOrange,
+        centerTitle: true,
       ),
       body: ListView.builder(
         itemCount: todos.length,
@@ -56,17 +61,57 @@ class TodoPage extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Add Todo'),
-        content: TextField(
-          controller: textController,
-          decoration: const InputDecoration(
-            hintText: 'Enter todo title',
+        // Center the title
+        titlePadding: const EdgeInsets.all(16),
+        title: const Center(
+          child: Text(
+            'Add Todo',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
+
+        // Center the content
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: textController,
+              textAlign: TextAlign.center, // Center the input text
+              decoration: const InputDecoration(
+                hintText: 'Enter todo title',
+                hintStyle: TextStyle(color: Colors.white70),
+                // Center the hint text
+                alignLabelWithHint: true,
+                // Optional: customize the text field appearance
+                border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white70),
+                ),
+              ),
+              style: const TextStyle(color: Colors.white), // Input text color
+            ),
+          ],
+        ),
+
+        backgroundColor: Colors.deepOrangeAccent,
+
+        // Center the action buttons
+        actionsAlignment: MainAxisAlignment.center,
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text(
+              'Cancel',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
           TextButton(
             onPressed: () {
@@ -77,10 +122,53 @@ class TodoPage extends ConsumerWidget {
                 Navigator.pop(context);
               }
             },
-            child: const Text('Add'),
+            child: const Text(
+              'Add',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ],
       ),
     );
   }
+
+  // void _showAddTodoDialog(BuildContext context, WidgetRef ref) {
+  //   final textController = TextEditingController();
+  //
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) => AlertDialog(
+  //       titlePadding: const EdgeInsets.all(16),
+  //       title: const Text('Add Todo', style: TextStyle(
+  //         color: Colors.white
+  //       ),),
+  //
+  //       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+  //       content: TextField(
+  //         controller: textController,
+  //         decoration: const InputDecoration(
+  //           hintText: 'Enter todo title',
+  //         ),
+  //       ),
+  //       backgroundColor: Colors.deepOrangeAccent,
+  //       actions: [
+  //         TextButton(
+  //           onPressed: () => Navigator.pop(context),
+  //           child: const Text('Cancel'),
+  //         ),
+  //         TextButton(
+  //           onPressed: () {
+  //             if (textController.text.isNotEmpty) {
+  //               ref
+  //                   .read(todoControllerProvider.notifier)
+  //                   .addTodo(textController.text);
+  //               Navigator.pop(context);
+  //             }
+  //           },
+  //           child: const Text('Add'),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }
