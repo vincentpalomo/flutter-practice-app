@@ -20,6 +20,33 @@ class TodoPage extends ConsumerWidget {
         backgroundColor: Colors.deepOrange,
         centerTitle: true,
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.deepPurple,
+              ),
+              child: Text('Drawer Header',
+                  style: TextStyle(color: Colors.white),
+              ),
+            ),
+            ListTile(
+              title: const Text('Home'),
+              onTap: () {
+              //   update the state of the app
+              },
+            ),
+            ListTile(
+              title: const Text('Contact'),
+              onTap: () {
+              //   update the state of the app
+              },
+            )
+          ],
+        ),
+      ),
       body: ListView.builder(
         itemCount: todos.length,
         itemBuilder: (context, index) {
@@ -54,6 +81,7 @@ class TodoPage extends ConsumerWidget {
       backgroundColor: Colors.deepOrangeAccent,
     );
   }
+
 
   void _showAddTodoDialog(BuildContext context, WidgetRef ref) {
     final textController = TextEditingController();
