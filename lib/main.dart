@@ -142,52 +142,57 @@ class _MyHomePageState extends State<MyHomePage> {
       case 2:
         page = AboutPage();
         break;
+      case 3:
+        page = WalletPage();
+        break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Scaffold(
-          body: Row(
-            children: [
-              SafeArea(
-                child: NavigationRail(
-                  extended: constraints.maxWidth >= 600,
-                  destinations: [
-                    NavigationRailDestination(
-                        icon: Icon(Icons.home),
-                        label: Text('Home'),
-                    ),
-                    NavigationRailDestination(
-                        icon: Icon(Icons.favorite),
-                        label: Text('Favorites'),
-                    ),
-                    NavigationRailDestination(
-                        icon: Icon(Icons.verified_user),
-                        label: Text('About'),
-                    ),
-                  ],
-                  selectedIndex: selectedIndex,
-                  onDestinationSelected: (value) {
-                    print('selected: $value');
-                    setState(() {
-                      selectedIndex = value;
-                    });
-                  },
-                ),
-              ),
-              Expanded(
-                  child: Container(
-                    color: Theme.of(context).colorScheme.primaryContainer,
-                    child: page,
+    return LayoutBuilder(builder: (context, constraints) {
+      return Scaffold(
+        body: Row(
+          children: [
+            SafeArea(
+              child: NavigationRail(
+                extended: constraints.maxWidth >= 600,
+                destinations: [
+                  NavigationRailDestination(
+                    icon: Icon(Icons.home),
+                    label: Text('Home'),
                   ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.favorite),
+                    label: Text('Favorites'),
+                  ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.verified_user),
+                    label: Text('About'),
+                  ),
+                  NavigationRailDestination(
+                      icon: Icon(Icons.account_balance_wallet),
+                      label: Text('Wallet'),
+                  )
+                ],
+                selectedIndex: selectedIndex,
+                onDestinationSelected: (value) {
+                  print('selected: $value');
+                  setState(() {
+                    selectedIndex = value;
+                  });
+                },
               ),
-            ],
-          ),
-        );
-      }
-    );
+            ),
+            Expanded(
+              child: Container(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                child: page,
+              ),
+            ),
+          ],
+        ),
+      );
+    });
   }
 }
 
@@ -228,9 +233,23 @@ class FavoritesPage extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.favorite),
             title: Text(fav.asLowerCase),
-        ),
+          ),
       ],
     );
+  }
+}
+
+class WalletPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+      final theme = Theme.of(context);
+      final style = theme.textTheme.bodyLarge!.copyWith(
+        color: theme.colorScheme.secondary,
+      );
+
+      return Center(
+        child: Text('Wallet Balance: \$100.00', style: style),
+      );
   }
 }
 
@@ -278,7 +297,6 @@ class GeneratorPage extends StatelessWidget {
   }
 }
 
-
 class BigCard extends StatelessWidget {
   const BigCard({
     super.key,
@@ -300,9 +318,9 @@ class BigCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Text(
-            pair.asLowerCase,
-            style: style,
-            semanticsLabel: "${pair.first} ${pair.second}",
+          pair.asLowerCase,
+          style: style,
+          semanticsLabel: "${pair.first} ${pair.second}",
         ),
       ),
     );
