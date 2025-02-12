@@ -145,6 +145,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case 3:
         page = WalletPage();
         break;
+      case 4:
+        page = InformationPage();
+        break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -170,9 +173,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     label: Text('About'),
                   ),
                   NavigationRailDestination(
-                      icon: Icon(Icons.account_balance_wallet),
-                      label: Text('Wallet'),
-                  )
+                    icon: Icon(Icons.account_balance_wallet),
+                    label: Text('Wallet'),
+                  ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.info),
+                    label: Text('Information'),
+                  ),
                 ],
                 selectedIndex: selectedIndex,
                 onDestinationSelected: (value) {
@@ -250,6 +257,21 @@ class WalletPage extends StatelessWidget {
       return Center(
         child: Text('Wallet Balance: \$100.00', style: style),
       );
+  }
+}
+
+class InformationPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    final theme = Theme.of(context);
+    final style = theme.textTheme.bodyLarge!.copyWith(
+      color: theme.colorScheme.secondary,
+    );
+
+    return Center(
+      child: Text('All information will be provided here', style: style,),
+    );
   }
 }
 
